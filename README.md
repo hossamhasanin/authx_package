@@ -1,6 +1,6 @@
 # authentication_x
 
-A new Flutter package project.
+A flutter package to facilitate the login/signup process
 
 ## Getting Started
 
