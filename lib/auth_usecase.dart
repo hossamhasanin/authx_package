@@ -25,5 +25,5 @@ class AuthUseCase {
     return _dataSource.deleteUser();
   }
 
-  Stream<User> get user => _dataSource.userData;
+  Stream<UserAuth> get user => _dataSource.userData;
 }

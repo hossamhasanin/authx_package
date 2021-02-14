@@ -1,4 +1,1 @@
-class User {
-  String name;
-  String email;
-}
+abstract class UserAuth {}
