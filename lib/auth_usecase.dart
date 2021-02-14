@@ -1,5 +1,4 @@
 import 'package:authentication_x/authx_datasource.dart';
-import 'package:authentication_x/models/user.dart';
 
 class AuthUseCase {
   AuthDataSource _dataSource;
@@ -25,5 +24,5 @@ class AuthUseCase {
     return _dataSource.deleteUser();
   }
 
-  Stream<UserAuth> get user => _dataSource.userData;
+  Stream get user => _dataSource.userData;
 }
