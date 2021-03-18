@@ -1,16 +1,17 @@
-import 'package:authentication_x/states/AuthState.dart';
+import 'AuthState.dart';
 
 class LoginState extends AuthState {
   bool isLogging;
-  Exception error;
+  Exception? error;
   bool isLogged;
 
-  LoginState({this.isLogged, this.error, this.isLogging});
+  LoginState(
+      {required this.isLogged, required this.error, required this.isLogging});
 
   @override
-  List<Object> get props => [isLogged, isLogging, error];
+  List<Object> get props => [isLogged, isLogging];
 
-  LoginState copy({isLogging, isLogged, error}) {
+  LoginState copy({isLogging, isLogged, Exception? error}) {
     return LoginState(
         isLogged: isLogged ?? this.isLogged,
         isLogging: isLogging ?? this.isLogging,

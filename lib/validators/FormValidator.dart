@@ -1,12 +1,15 @@
-import 'package:authentication_x/validators/ValidationErrors.dart';
+import 'ValidationErrors.dart';
 
 class FormValidator {
   final _usernameValidCharacters = RegExp(r'^[a-zA-Z0-9_]+$');
-  final _emailValidCharacters = RegExp(r'^[a-zA-Z0-9_\.@]+$');
-  final _passwordSpecialCharacters = RegExp(r'^[\$#%\^&\~@]+$');
-  final _passwordLetters = RegExp(r'^[a-zA-Z]+$');
+  final _emailValidCharacters = RegExp(r'[a-zA-Z0-9_\.@]');
+  final _passwordSpecialCharacters = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
+  final _passwordLetters = RegExp(r'[a-zA-Z]');
 
-  EmailErrors isEmailValid(String email) {
+  EmailErrors? isEmailValid(String? email) {
+    if (email == null) {
+      return EmailErrors.EmailEmpty;
+    }
     if (email.isEmpty) {
       return EmailErrors.EmailEmpty;
     }
@@ -23,7 +26,10 @@ class FormValidator {
     return null;
   }
 
-  UserNameErrors isUsernameValid(String username) {
+  UserNameErrors? isUsernameValid(String? username) {
+    if (username == null) {
+      return UserNameErrors.UserNameEmpty;
+    }
     if (username.isEmpty) {
       return UserNameErrors.UserNameEmpty;
     }
@@ -40,11 +46,14 @@ class FormValidator {
     return null;
   }
 
-  PassWordErrors isPasswordValid(String password) {
+  PassWordErrors? isPasswordValid(String? password) {
+    if (password == null) {
+      return PassWordErrors.PasswordEmpty;
+    }
     if (password.isEmpty) {
       return PassWordErrors.PasswordEmpty;
     }
-    if (!_passwordSpecialCharacters.hasMatch(password)) {
+    if (!password.contains(_passwordSpecialCharacters)) {
       return PassWordErrors.PasswordNotContainsSpecialChar;
     }
 

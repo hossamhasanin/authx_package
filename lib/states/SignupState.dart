@@ -1,14 +1,15 @@
-import 'package:authentication_x/states/AuthState.dart';
+import 'AuthState.dart';
 
 class SignupState extends AuthState {
   bool isSigned;
-  Exception error;
+  Exception? error;
   bool isSigning;
 
-  SignupState({this.isSigned, this.error, this.isSigning});
+  SignupState(
+      {required this.isSigned, required this.error, required this.isSigning});
 
   @override
-  List<Object> get props => [isSigned, isSigning, error];
+  List<Object> get props => [isSigned, isSigning];
 
   SignupState copy({isSigned, isSigning, error}) {
     return SignupState(
