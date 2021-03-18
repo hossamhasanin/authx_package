@@ -9,7 +9,7 @@ class Login extends AuthEvent {
   String email;
   String password;
 
-  Login({this.email, this.password});
+  Login({required this.email, required this.password});
   @override
   // TODO: implement props
   List<Object> get props => [email, password];
@@ -20,7 +20,7 @@ class SignUp extends AuthEvent {
   String password;
   String username;
 
-  SignUp({this.email, this.username, this.password});
+  SignUp({required this.email, required this.username, required this.password});
   @override
   // TODO: implement props
   List<Object> get props => [email, password, username];

@@ -1,8 +1,9 @@
-import 'package:authentication_x/authx_datasource.dart';
+import 'authx_datasource.dart';
 
 class AuthUseCase {
   AuthDataSource _dataSource;
-  AuthUseCase({AuthDataSource dataSource}) : this._dataSource = dataSource;
+  AuthUseCase({required AuthDataSource dataSource})
+      : this._dataSource = dataSource;
 
   Future login(String email, String password) {
     return _dataSource.login(email, password);
@@ -16,7 +17,7 @@ class AuthUseCase {
     return _dataSource.logOut();
   }
 
-  Future isLoggedIn() {
+  bool isLoggedIn() {
     return _dataSource.isLogedIn();
   }
 

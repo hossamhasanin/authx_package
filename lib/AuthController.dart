@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:authentication_x/auth_usecase.dart';
-import 'package:authentication_x/authx_datasource.dart';
-import 'package:authentication_x/events/auth_events.dart';
-import 'package:authentication_x/states/AuthState.dart';
-import 'package:authentication_x/states/LoginState.dart';
-import 'package:authentication_x/states/SignupState.dart';
 import 'package:get/get.dart';
+
+import 'auth_usecase.dart';
+import 'authx_datasource.dart';
+import 'events/auth_events.dart';
+import 'states/AuthState.dart';
+import 'states/LoginState.dart';
+import 'states/SignupState.dart';
 
 const String LOGIN_TAG = "AUTHX_LOGIN";
 
@@ -15,13 +16,13 @@ const String SIGNUP_TAG = "AUTHX_SIGNUP";
 enum NavigationDestiny { LOGIN, SIGNUP }
 
 class AuthController extends GetxController {
-  AuthUseCase _authUseCase;
+  late AuthUseCase _authUseCase;
   StreamController<AuthEvent> _events = StreamController<AuthEvent>();
 
   Rx<AuthState> authState = AuthState().obs;
   Rx<NavigationDestiny> navigationHandler = NavigationDestiny.LOGIN.obs;
 
-  AuthController({AuthDataSource authDataSource}) {
+  AuthController({required AuthDataSource authDataSource}) {
     _authUseCase = AuthUseCase(dataSource: authDataSource);
     _events.stream.listen((event) async {
       if (event is Login) {
@@ -43,19 +44,21 @@ class AuthController extends GetxController {
 
   Future _login(Login event) async {
     try {
-      authState.value =
-          LoginState(isLogging: true, isLogged: false, error: null);
+      // authState.value =
+      //     LoginState(isLogging: true, isLogged: false, error: null);
       await _authUseCase.login(event.email, event.password);
       authState.value =
           LoginState(isLogged: true, isLogging: false, error: null);
     } catch (e) {
       print("$LOGIN_TAG > $e");
-      authState.value = LoginState(isLogging: false, isLogged: false, error: e);
+      authState.value =
+          LoginState(isLogging: false, isLogged: false, error: e as Exception);
     }
   }
 
   Future _signup(SignUp event) async {
     try {
+      print("koko we are here");
       authState.value =
           SignupState(isSigning: true, isSigned: false, error: null);
       await _authUseCase.signup(event.email, event.password, event.username);
@@ -64,8 +67,12 @@ class AuthController extends GetxController {
     } catch (e) {
       print("$SIGNUP_TAG > $e");
       authState.value =
-          SignupState(isSigning: false, isSigned: false, error: e);
+          SignupState(isSigning: false, isSigned: false, error: e as Exception);
     }
+  }
+
+  bool isLoggedIn() {
+    return _authUseCase.isLoggedIn();
   }
 
   @override
