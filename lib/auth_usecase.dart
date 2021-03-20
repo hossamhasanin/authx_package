@@ -1,3 +1,5 @@
+import 'package:models/User.dart';
+
 import 'authx_datasource.dart';
 
 class AuthUseCase {
@@ -9,8 +11,10 @@ class AuthUseCase {
     return _dataSource.login(email, password);
   }
 
-  Future signup(String email, String password, String username) {
-    return _dataSource.signup(username, email, password);
+  Future signup(String email, String password, String username) async {
+    String uid = await _dataSource.signup(username, email, password);
+    User user = User(id: uid, username: username, email: email);
+    return _dataSource.createUserInDatabase(user);
   }
 
   Future logout() {

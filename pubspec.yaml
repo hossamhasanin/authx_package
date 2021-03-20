@@ -3,6 +3,7 @@ description: A new Flutter package project.
 version: 0.0.1
 author:
 homepage:
+publish_to: none
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -14,6 +15,8 @@ dependencies:
 
   get:  
   equatable: ^2.0.0
+  models:
+    path: ../models
 
 dev_dependencies:
   flutter_test:

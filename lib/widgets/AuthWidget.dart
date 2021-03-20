@@ -23,6 +23,12 @@ class AuthWidget extends StatefulWidget {
 
 class _AuthWidgetState extends State<AuthWidget> {
   @override
+  void dispose() {
+    widget.controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     widget.controller.authState.stream.listen((state) {
