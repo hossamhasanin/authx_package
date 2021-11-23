@@ -31,16 +31,19 @@ class _AuthWidgetState extends State<AuthWidget> {
   @override
   void initState() {
     super.initState();
-    widget.controller.authState.stream.listen((state) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
-        if (state is LoginState) {
-          widget.onLoginState(state);
-        } else if (state is SignupState) {
-          print("koko signup");
+    widget.controller.authState.listen((state) {
+      // WidgetsBinding.instance!.addPostFrameCallback((_) {
 
-          widget.onSignupState(state);
-        }
-      });
+      // });
+      debugPrint("auth state  updated " + state.toString());
+      if (state is LoginState) {
+        debugPrint("login state");
+        widget.onLoginState(state);
+      } else if (state is SignupState) {
+        print("koko signup");
+
+        widget.onSignupState(state);
+      }
     });
   }
 

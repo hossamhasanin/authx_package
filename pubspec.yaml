@@ -15,6 +15,7 @@ dependencies:
 
   get:  
   equatable: ^2.0.0
+  firebase_storage: ^8.0.5
   models:
     path: ../models
 

@@ -1,3 +1,4 @@
+import 'package:authentication_x/states/user_image_viewstate.dart';
 import 'package:models/User.dart';
 
 import 'authx_datasource.dart';
@@ -17,6 +18,30 @@ class AuthUseCase {
     return _dataSource.createUserInDatabase(user);
   }
 
+  Future<UserImageViewState> upadateUserData(
+      UserImageViewState viewState, User user) async {
+    try {
+      await _dataSource.updateUserData(user);
+      return Future.value(
+          viewState.copy(user: user, uploading: false, error: ""));
+    } catch (e) {
+      return Future.value(viewState.copy(
+          uploading: false, error: "Error while saving the data"));
+    }
+  }
+
+  Future<UserImageViewState> updateProfile(
+      UserImageViewState viewState, User user) async {
+    try {
+      await _dataSource.updateUserData(user);
+      await _dataSource.updateUserProfile(user);
+
+      return viewState.copy(user: user);
+    } catch (e) {
+      return viewState.copy(error: "Error while updating the profile");
+    }
+  }
+
   Future logout() {
     return _dataSource.logOut();
   }
@@ -29,5 +54,5 @@ class AuthUseCase {
     return _dataSource.deleteUser();
   }
 
-  Stream get user => _dataSource.userData;
+  Stream<User> get user => _dataSource.userData;
 }
